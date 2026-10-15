@@ -1,5 +1,5 @@
 {
- "total": 3.585318,
+ "total": 3.959839,
  "calls": [
   {
    "model": "google/gemini-3.1-flash-lite-image",
@@ -435,6 +435,61 @@
    "model": "google/gemini-3.1-flash-lite-image",
    "cost": 0.03419875,
    "label": "avatar-hybrid-agt-cogsworth"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390775,
+   "label": "avatar-lens"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339215,
+   "label": "avatar-comms"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-comms"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-scribe"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03392125,
+   "label": "avatar-lens"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-agt-pixel-pete"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339215,
+   "label": "avatar-scribe"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-agt-rusty"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03421125,
+   "label": "avatar-hybrid-agt-pixel-pete"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03420975,
+   "label": "avatar-hybrid-agt-rusty"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0342135,
+   "label": "avatar-hybrid-\u00dcn\u00ef-regress"
   }
  ]
 }

@@ -1,0 +1,27 @@
+{
+ "urn": "comms",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "The attached image is the golden style reference. Match its art style, pixel size, proportions, 1-pixel dark outline, framing and shading exactly. Hard pixel edges only, no anti-aliasing, no gradients, no text. Draw a NEW character in that style: a robot agent (supervisor wearing a headset with microphone). Flat solid background color #263A5E. Accent color (eyes, antenna/ear details, chest emblem) #FF8A2B. Head and shoulders, centered, facing the viewer, square image.",
+ "golden": "robot-01.png",
+ "identity_ref": null,
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#263A5E",
+  "#FF8A2B",
+  "#FFAD6A",
+  "#994B0D",
+  "#3F4F6C",
+  "#132038"
+ ],
+ "palette_name": "orange",
+ "ref_style": null,
+ "despeckle": true,
+ "grid": 64,
+ "colors_used": 10,
+ "cost_usd": 0.033908
+}

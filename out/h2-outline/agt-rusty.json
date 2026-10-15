@@ -1,0 +1,27 @@
+{
+ "urn": "agt-rusty",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "Two reference images. IMAGE 1 is the golden style reference: match its art style, pixel size, proportions, 1-pixel dark outline, shading and framing exactly. IMAGE 2 is a flat silhouette of THIS agent: the filled shape is the character's exact outer outline. Keep that outline shape (head, ear/antenna bumps, shoulders, arms) as the outer contour of the character and use its fill color as the accent color; draw all interior detail (face, eyes, shading) in the style of IMAGE 1. Hard pixel edges only, no anti-aliasing, no gradients, no text. Subject: a robot agent. Flat solid background color #243B4A. Head and shoulders, centered, facing the viewer, square image.",
+ "golden": "robot-01.png",
+ "identity_ref": "agt-rusty.png",
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#243B4A",
+  "#FF8FC7",
+  "#FFB0D7",
+  "#994F74",
+  "#364955",
+  "#13222C"
+ ],
+ "palette_name": "pink",
+ "ref_style": "outline",
+ "despeckle": true,
+ "grid": 64,
+ "colors_used": 10,
+ "cost_usd": 0.0341995
+}

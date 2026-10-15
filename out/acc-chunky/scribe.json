@@ -1,0 +1,28 @@
+{
+ "urn": "scribe",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "The attached image is the golden style reference. Match its art style, pixel size, proportions, 1-pixel dark outline, framing and shading exactly. Hard pixel edges only, no anti-aliasing, no gradients, no text. Draw a NEW character in that style: a robot agent (writer with a long quill pen). Flat solid background color #3A2438. Accent color (eyes, antenna/ear details, chest emblem) #2EE6A6. Head and shoulders, centered, facing the viewer, square image. Draw any accessory (hat, glasses, headset, quill, tool, badge) large, chunky and simple: at least 8 pixels wide at 64x64 scale, fully inside the frame, with a clear dark outline, so it survives downscaling.",
+ "golden": "robot-01.png",
+ "identity_ref": null,
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#3A2438",
+  "#2EE6A6",
+  "#70FFCD",
+  "#108A5F",
+  "#423041",
+  "#221421"
+ ],
+ "palette_name": "mint",
+ "ref_style": null,
+ "despeckle": true,
+ "grid": 64,
+ "colors_used": 11,
+ "cost_usd": 0.0339215,
+ "chunky": true
+}

@@ -1,0 +1,27 @@
+{
+ "urn": "agt-pixel-pete",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "Two reference images. IMAGE 1 is the golden style reference: match its art style, pixel size, proportions, 1-pixel dark outline, shading and framing exactly. IMAGE 2 is a tiny 8x8 pixel sprite that defines THIS agent's identity, and here it is as an ASCII mask (# = body pixel, . = empty), top to bottom:\n#..##..#\n.######.\n.######.\n.######.\n.######.\n#.####.#\n.######.\n.######.\nFollow the mask: the character's outer silhouette (head, ear/antenna bumps, shoulders, arms) must match it, with its color as the accent color; redraw it fully detailed in the style of IMAGE 1. Hard pixel edges only, no anti-aliasing, no gradients, no text. Subject: a robot agent. Flat solid background color #14323A. Head and shoulders, centered, facing the viewer, square image.",
+ "golden": "robot-01.png",
+ "identity_ref": "agt-pixel-pete.png",
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#14323A",
+  "#FF3B3B",
+  "#FF7575",
+  "#991717",
+  "#243C42",
+  "#091D22"
+ ],
+ "palette_name": "red",
+ "ref_style": "mask",
+ "despeckle": true,
+ "grid": 64,
+ "colors_used": 9,
+ "cost_usd": 0.03421125
+}

@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 """Idempotent 8-bit agent avatar generator.
-usage: avatar.py <urn-name> [--role R] [--species S] [--mood M] [--accent #hex] [--bg #hex]
-                 [--model M] [--out DIR] [--force] [--dry-run]
-Output: <out>/<safe-urn-name>.png (64x64 palette-locked) + .json sidecar. Existing file => no model call."""
-import argparse, colorsys, hashlib, json, os, re, sys, unicodedata, io
+usage: avatar.py [--out DIR] [--accent #hex] [--bg #hex] [--role R] [--species S] [--mood M]
+                 [--identity-ref PNG --ref-style sprite|outline|mask] [--curated] [--model M]
+                 [--force] [--dry-run] [--json] [--scratch DIR] [--] <urn-name>
+Output: <out>/<safe-urn-name>.png (64x64 palette-locked), @8x.png and .json sidecar. Existing file => no model call.
+--json: one JSON line on stdout on success; on failure one JSON line on stderr and a distinct exit status:
+  over_budget 10, credential_missing 11, scope_missing 12, no_image 13, model_error 14, ledger_corrupt 15,
+  registry_corrupt 16, internal_error 70 (argparse usage errors exit 2).
+Env: AVATAR_KEY_FILE, AVATAR_LEDGER, AVATAR_SPEND_CAP, AVATAR_REGISTRY (defaults unchanged)."""
+import argparse, colorsys, hashlib, json, os, re, shutil, sys, tempfile, unicodedata, io
 from collections import Counter
 from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import generate, pixelate, upscale, ncolors, spent, despeckle
+import lib
+from lib import generate, pixelate, upscale, ncolors, spent, despeckle, AvatarError, locked
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GOLDEN = os.path.join(HERE, "golden", "robot-01.png")
@@ -21,23 +27,35 @@ CURATED = [("coral","#FF6B5B","#1F2A44"),("amber","#FFB627","#2B2D5B"),("lime","
  ("red","#FF3B3B","#14323A"),("orange","#FF8A2B","#263A5E"),("yellow","#FFE14D","#2E2A5E"),("teal","#1FC8B8","#4A2B4F"),
  ("pink","#FF8FC7","#243B4A"),("green","#44D96B","#3D2B3F"),("periwinkle","#7C8CFF","#3A3326"),("cream","#F2E3A1","#3B2B55")]
 
-REGISTRY = os.environ.get("AVATAR_REGISTRY", os.path.join(HERE, "palette_registry.json"))
+def registry_path(): return os.environ.get("AVATAR_REGISTRY") or os.path.join(HERE, "palette_registry.json")
+
+def _load_registry(path):
+    """Missing file = empty registry. Present but unreadable/invalid = refuse (never silently reassign colours)."""
+    if not os.path.exists(path): return {}
+    try:
+        reg = json.load(open(path))
+        if not isinstance(reg, dict) or not all(isinstance(k, str) and isinstance(v, int) and 0 <= v < len(CURATED) for k, v in reg.items()):
+            raise ValueError("expected an object of {name: slot 0..%d}" % (len(CURATED) - 1))
+        return reg
+    except Exception as e:
+        raise AvatarError("registry_corrupt", f"palette registry unreadable ({path}): {e}")
 
 def curated_pair(urn, commit=True):
     """Palette slot is assigned at first use and persisted, so ids never share a slot while free slots remain.
     Start at sha256(NFC urn) % N and probe forward past taken slots. Deterministic for a given registry; the
-    assignment depends on first-use order, so the registry file is the source of truth (commit it)."""
-    urn = unicodedata.normalize("NFC", urn)
-    try: reg = json.load(open(REGISTRY))
-    except Exception: reg = {}
-    if urn not in reg:
-        h = hashlib.sha256(urn.encode()).digest(); idx = (h[0] << 8 | h[1]) % len(CURATED)
-        used = set(reg.values())
-        for k in range(len(CURATED)):
-            if (idx + k) % len(CURATED) not in used: idx = (idx + k) % len(CURATED); break
-        reg[urn] = idx   # all slots taken: falls back to the hash slot (shared)
-        if commit:
-            tmp = REGISTRY + ".tmp"; json.dump(reg, open(tmp, "w"), indent=1, ensure_ascii=False); os.replace(tmp, REGISTRY)
+    assignment depends on first-use order, so the registry file is the source of truth (commit it).
+    Reads and writes hold an exclusive flock on <registry>.lock; a corrupt registry is refused, not overwritten."""
+    urn = unicodedata.normalize("NFC", urn); path = registry_path()
+    with locked(path):
+        reg = _load_registry(path)
+        if urn not in reg:
+            h = hashlib.sha256(urn.encode()).digest(); idx = (h[0] << 8 | h[1]) % len(CURATED)
+            used = set(reg.values())
+            for k in range(len(CURATED)):
+                if (idx + k) % len(CURATED) not in used: idx = (idx + k) % len(CURATED); break
+            reg[urn] = idx   # all slots taken: falls back to the hash slot (shared)
+            if commit:
+                tmp = path + ".tmp"; json.dump(reg, open(tmp, "w"), indent=1, ensure_ascii=False); os.replace(tmp, path)
     name, accent, bg = CURATED[reg[urn]]
     return name, bg, accent
 
@@ -57,7 +75,7 @@ def lighten_darken(hexc):
 
 def _hex(c): return tuple(int(c[i:i+2], 16) for i in (1, 3, 5))
 
-def sprite_ref(path, bg, accent=None, style="sprite", grid=8):
+def sprite_ref(path, bg, accent=None, style="sprite", grid=8, scratch=None):
     """Identity reference image built from the procedural sprite. Returns (png path, dominant colour hex, ascii mask).
     style: sprite = sprite as-is | outline = silhouette only, dark outline, flat fill | mask = sprite (prompt also carries ASCII mask).
     If accent is given the sprite is recoloured to it (luminance ramp) so identity and palette agree."""
@@ -101,12 +119,18 @@ def sprite_ref(path, bg, accent=None, style="sprite", grid=8):
                     ox = (x*S + (S-1-k if dx > 0 else k)) if dx else x*S + t
                     oy = (y*S + (S-1-k if dy > 0 else k)) if dy else y*S + t
                     px[ox, oy] = (11, 11, 20)
-    tmp = os.path.join(HERE, "out", ".sprite_ref_%s.png" % hashlib.sha1((path + str(bg) + str(accent) + style).encode()).hexdigest()[:10])
+    tmp = os.path.join(scratch or tempfile.gettempdir(), "sprite_ref_%s.png" % hashlib.sha1((path + str(bg) + str(accent) + style).encode()).hexdigest()[:10])
     big.save(tmp); return tmp, dom, mask
 
 MASK = []
 
+CHUNKY = (" Draw any accessory (hat, glasses, headset, quill, tool, badge) large, chunky and simple: at least 8 pixels wide at 64x64 "
+          "scale, fully inside the frame, with a clear dark outline, so it survives downscaling.")
+
 def build_prompt(a, bg, accent):
+    return _build_prompt(a, bg, accent) + (CHUNKY if getattr(a, "chunky", False) else "")
+
+def _build_prompt(a, bg, accent):
     subj = f"a {a.species} agent"
     if a.role: subj += f" ({a.role})"
     if a.mood: subj += f", mood: {a.mood}"
@@ -123,35 +147,63 @@ def build_prompt(a, bg, accent):
             f"Flat solid background color {bg}. Accent color (eyes, antenna/ear details, chest emblem) {accent}. "
             "Head and shoulders, centered, facing the viewer, square image.")
 
-def main():
-    p = argparse.ArgumentParser()
-    p.add_argument("urn"); p.add_argument("--role", default=""); p.add_argument("--species", default="robot")
-    p.add_argument("--mood", default=""); p.add_argument("--identity-ref"); p.add_argument("--ref-style", default="sprite", choices=["sprite","outline","mask"]); p.add_argument("--curated", action="store_true"); p.add_argument("--no-despeckle", action="store_true"); p.add_argument("--accent"); p.add_argument("--bg")
-    p.add_argument("--model", default=DEFAULT_MODEL); p.add_argument("--out", default=os.path.join(HERE, "agents"))
-    p.add_argument("--force", action="store_true"); p.add_argument("--dry-run", action="store_true")
-    a = p.parse_args()
+def run(a):
+    """Generate (or find) one avatar. Returns the result dict; raises AvatarError."""
     name = safe_name(a.urn); os.makedirs(a.out, exist_ok=True)
-    png, meta = os.path.join(a.out, name + ".png"), os.path.join(a.out, name + ".json")
+    png, meta, png8 = os.path.join(a.out, name + ".png"), os.path.join(a.out, name + ".json"), os.path.join(a.out, name + "@8x.png")
     if os.path.exists(png) and not a.force:
-        print(f"exists, unchanged: {png}"); return
+        return {"png": png, "png8x": png8, "sidecar": meta, "cost_usd": 0.0, "model": None, "existed": True}
     sbg, sac = seeded_colors(a.urn); pname = None
     if a.curated: pname, sbg, sac = curated_pair(a.urn, commit=not a.dry_run)
     bg, accent = (a.bg or sbg).upper(), (a.accent or sac).upper()
-    refs = [GOLDEN]
-    if a.identity_ref:
-        tmp, dom, mask = sprite_ref(a.identity_ref, bg, accent if (a.curated or a.accent) else None, a.ref_style)
-        MASK[:] = mask; refs.append(tmp)
-        if not (a.curated or a.accent): accent = dom
-    prompt = build_prompt(a, bg, accent)
-    if a.dry_run: print(prompt); return
-    raw = generate(prompt, a.model, refs=refs, label="avatar-" + ("hybrid-" if a.identity_ref else "") + name)
+    refs = [GOLDEN]; scratch = None; own_scratch = False
+    try:
+        if a.identity_ref:
+            if a.scratch: os.makedirs(a.scratch, exist_ok=True); scratch = a.scratch
+            else: scratch = tempfile.mkdtemp(prefix="avatar-"); own_scratch = True
+            tmp, dom, mask = sprite_ref(a.identity_ref, bg, accent if (a.curated or a.accent) else None, a.ref_style, scratch=scratch)
+            MASK[:] = mask; refs.append(tmp)
+            if not (a.curated or a.accent): accent = dom
+        prompt = build_prompt(a, bg, accent)
+        if a.dry_run: return {"dry_run": True, "prompt": prompt}
+        raw = generate(prompt, a.model, refs=refs, label="avatar-" + ("hybrid-" if a.identity_ref else "") + name)
+    finally:
+        if scratch:
+            if own_scratch: shutil.rmtree(scratch, ignore_errors=True)
+            else:
+                for f in refs[1:]:
+                    try: os.remove(f)
+                    except OSError: pass
     palette = BASE + [bg, accent] + lighten_darken(accent) + lighten_darken(bg)
     small = pixelate(raw, GRID, palette)
     if not a.no_despeckle: small = despeckle(small)
     small.save(png)  # canonical 64x64
-    upscale(small, 8).save(os.path.join(a.out, name + "@8x.png"))
+    upscale(small, 8).save(png8)
     json.dump({"urn": a.urn, "model": a.model, "prompt": prompt, "golden": os.path.basename(GOLDEN), "identity_ref": os.path.basename(a.identity_ref) if a.identity_ref else None,
-               "palette": palette, "palette_name": pname, "ref_style": a.ref_style if a.identity_ref else None, "despeckle": not a.no_despeckle, "grid": GRID, "colors_used": ncolors(small)}, open(meta, "w"), indent=1)
-    print(f"wrote {png} ({ncolors(small)} colors); total spent ${spent():.2f}")
+               "palette": palette, "palette_name": pname, "ref_style": a.ref_style if a.identity_ref else None, "despeckle": not a.no_despeckle, "grid": GRID, "colors_used": ncolors(small),
+               "cost_usd": lib.LAST_COST, **({"chunky": True} if a.chunky else {})}, open(meta, "w"), indent=1)
+    return {"png": png, "png8x": png8, "sidecar": meta, "cost_usd": lib.LAST_COST, "model": a.model, "colors": ncolors(small)}
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("urn"); p.add_argument("--role", default=""); p.add_argument("--species", default="robot")
+    p.add_argument("--mood", default=""); p.add_argument("--identity-ref"); p.add_argument("--ref-style", default="sprite", choices=["sprite","outline","mask"]); p.add_argument("--curated", action="store_true"); p.add_argument("--no-despeckle", action="store_true"); p.add_argument("--chunky", action="store_true", help="opt-in: ask for large, simple accessories that survive 64px"); p.add_argument("--accent"); p.add_argument("--bg")
+    p.add_argument("--model", default=DEFAULT_MODEL); p.add_argument("--out", default=os.path.join(HERE, "agents"))
+    p.add_argument("--force", action="store_true"); p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--json", action="store_true", help="machine-readable result line (stdout) / error line (stderr)")
+    p.add_argument("--scratch", help="directory for temporary reference images (default: a fresh temp dir, removed after)")
+    a = p.parse_args()
+    try:
+        res = run(a)
+    except AvatarError as e:
+        err = {"code": e.code, "message": e.message, "cost_usd": e.cost}
+        print(json.dumps(err, ensure_ascii=False) if a.json else f"error[{e.code}]: {e.message}", file=sys.stderr); sys.exit(e.exit)
+    except Exception as e:   # a bug, not a provider problem: say so
+        err = {"code": "internal_error", "message": f"{type(e).__name__}: {e}", "cost_usd": lib.LAST_COST}
+        print(json.dumps(err, ensure_ascii=False) if a.json else f"error[internal_error]: {err['message']}", file=sys.stderr); sys.exit(70)
+    if res.get("dry_run"): print(res["prompt"]); return
+    if a.json: print(json.dumps({k: res[k] for k in ("png", "png8x", "sidecar", "cost_usd", "model")} | ({"existed": True} if res.get("existed") else {}), ensure_ascii=False)); return
+    if res.get("existed"): print(f"exists, unchanged: {res['png']}")
+    else: print(f"wrote {res['png']} ({res['colors']} colors); cost ${res['cost_usd']:.3f}; total spent ${spent():.2f}")
 
 if __name__ == "__main__": main()
