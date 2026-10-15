@@ -1,0 +1,22 @@
+{
+ "urn": "portfolio-manager",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "The attached image is the golden style reference. Match its art style, pixel size, proportions, 1-pixel dark outline, framing and shading exactly. Hard pixel edges only, no anti-aliasing, no gradients, no text. Draw a NEW character in that style: a robot agent (manager with a tie and clipboard). Flat solid background color #282959. Accent color (eyes, antenna/ear details, chest emblem) #F2ED5F. Head and shoulders, centered, facing the viewer, square image.",
+ "golden": "robot-01.png",
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#282959",
+  "#F2ED5F",
+  "#FFFB92",
+  "#918D30",
+  "#3E3F66",
+  "#151535"
+ ],
+ "grid": 64,
+ "colors_used": 11
+}

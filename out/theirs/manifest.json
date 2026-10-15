@@ -1,0 +1,1635 @@
+{
+  "task": "12-avatar like-for-like comparison, algorithmic engine",
+  "generator": {
+    "name": "avatar-generate",
+    "kind": "Hadron graph-native workflow, one script@v1 (goja) step",
+    "workflow_file": "apps/station/plugins/avatar-server/workflows/avatar-generate.workflow.yaml",
+    "workflow_file_sha256": "c77d7bfd5a6489632cbd233b1e3b9283963582851b9df51be4dd055c22b8d0e5",
+    "workflow_version": "v1",
+    "plugin_generator_version": "v1",
+    "workflow_plan_digest": "sha256:7fdd072820d31e1647c2ee4a8b61b9bf476087547145ee8a7e8a02c8ce334586"
+  },
+  "hadron": {
+    "cli_and_daemon": "window-b-prep",
+    "binary_commit": "aeed883bc6452b1352f52165774414770681cfcc",
+    "binary_built": "2026-10-09T22:47:43Z",
+    "repo_head_now": "10b04c0a9329abf4fff3da6088b3735a660efd91 (ahead of the binary; the binary is what ran)"
+  },
+  "go_workflow": {
+    "pinned_by_hadron": "v0.1.0",
+    "libs_checkout_head": "9dd912c692851cb5a1a75c455295d314306355a4"
+  },
+  "native_grid": "8x8",
+  "png_scale": "64x nearest-neighbour (integer) = 512x512px",
+  "svg": "generator output unchanged except width/height 64 -> 512; viewBox 0 0 8 8; one rect per lit pixel (not run-merged)",
+  "knobs": "defaults: fill 65, hue -1 (id-derived hue), submitted explicitly as in the parity run",
+  "method": "each id run twice under distinct run ids against one hadrond (scratch HOME, port 18095); PNG built from the workflow's SVG rects",
+  "timing_note": "[run a, run b]. server_ms = run.updated_at - run.created_at, the workflow's own execution. observed_ms = client-side, POST start until inspect first shows succeeded (polled every 20ms). They differ by ~1.5-2s because hadrond's status becomes visible to inspect that long after the run finishes; observed_ms is what a caller waits.",
+  "avatars": [
+    {
+      "id": "agt-cogsworth",
+      "inputs_submitted": {
+        "id": "agt-cogsworth",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-cogsworth.png",
+        "agt-cogsworth.svg"
+      ],
+      "hue": 323,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(323 65% 38%)",
+        "hsl(323 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 48,
+      "server_ms": [
+        110.2,
+        120.8
+      ],
+      "observed_ms": [
+        942.7,
+        1977.7
+      ],
+      "png_sha256": "0acb0966190a1e584e9630225733fc0c1dbbee031d9460eff7037561e562f0b3",
+      "svg_sha256_generator_output": "7ef21787903492a4ee07c583890890009eff99aeb831510f7a646da3f35828d1",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 323,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-pixel-pete",
+      "inputs_submitted": {
+        "id": "agt-pixel-pete",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-pixel-pete.png",
+        "agt-pixel-pete.svg"
+      ],
+      "hue": 32,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(32 65% 38%)",
+        "hsl(32 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 46,
+      "server_ms": [
+        108.5,
+        107.3
+      ],
+      "observed_ms": [
+        2025.5,
+        1983.6
+      ],
+      "png_sha256": "402c1fda30e27621591563dc36e643d7b56e1fcd397f70a9b4652a00a2028716",
+      "svg_sha256_generator_output": "913e72cca85ae680be00c41eb8c485a4439b15a60dc11baa14c8dea9f43b850d",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 32,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-bolt",
+      "inputs_submitted": {
+        "id": "agt-bolt",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-bolt.png",
+        "agt-bolt.svg"
+      ],
+      "hue": 66,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(66 65% 38%)",
+        "hsl(66 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 46,
+      "server_ms": [
+        90.5,
+        88.8
+      ],
+      "observed_ms": [
+        1973.9,
+        1997.3
+      ],
+      "png_sha256": "335434e6a485085ebd268a13502f000d5d46d1281c53f5b5142378b97fb8ccbf",
+      "svg_sha256_generator_output": "d3c9043b69348f7cbe999947807e130837a22b5d90122041ef192f0c28b98f6c",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 66,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-gizmo",
+      "inputs_submitted": {
+        "id": "agt-gizmo",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-gizmo.png",
+        "agt-gizmo.svg"
+      ],
+      "hue": 2,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(2 65% 38%)",
+        "hsl(2 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 48,
+      "server_ms": [
+        108.1,
+        159.0
+      ],
+      "observed_ms": [
+        2064.0,
+        1956.1
+      ],
+      "png_sha256": "687c2098a1bab257549ea1bed88548ed4204a3b21cbce8c367e0d89a2e2d18b4",
+      "svg_sha256_generator_output": "ca181d5ea73c64c394385de5aad7c8dc9f9a5808eb46fa59cbea832b5b348e00",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 2,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-rusty",
+      "inputs_submitted": {
+        "id": "agt-rusty",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-rusty.png",
+        "agt-rusty.svg"
+      ],
+      "hue": 265,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(265 65% 38%)",
+        "hsl(265 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 50,
+      "server_ms": [
+        122.1,
+        118.9
+      ],
+      "observed_ms": [
+        1984.7,
+        2011.9
+      ],
+      "png_sha256": "eaa521ead279704124621466ac16db3f88f0b1781e24ca413fe891f9bfa7882c",
+      "svg_sha256_generator_output": "c0f6809e58815c742ff7d302681300900993ce3127c22757824c7a7ac9dfbdfd",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 265,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-sprocket",
+      "inputs_submitted": {
+        "id": "agt-sprocket",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-sprocket.png",
+        "agt-sprocket.svg"
+      ],
+      "hue": 71,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(71 65% 38%)",
+        "hsl(71 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 52,
+      "server_ms": [
+        144.6,
+        106.6
+      ],
+      "observed_ms": [
+        1989.4,
+        2006.8
+      ],
+      "png_sha256": "8508b55a3eda95cacebdcd2c0064663b7ff218b280e879d41968b6b90727fa0a",
+      "svg_sha256_generator_output": "8493ca1547f6861bd302a4ad57539b12dd8d45a8cce3611b02b02145025838cc",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 71,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agt-widget",
+      "inputs_submitted": {
+        "id": "agt-widget",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agt-widget.png",
+        "agt-widget.svg"
+      ],
+      "hue": 68,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(68 65% 38%)",
+        "hsl(68 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 50,
+      "server_ms": [
+        206.6,
+        103.5
+      ],
+      "observed_ms": [
+        1986.8,
+        2024.0
+      ],
+      "png_sha256": "19a9a97d1e4aa858b10c3498d19dc269b735472a80f03dd14a69a645e672cd15",
+      "svg_sha256_generator_output": "7678478320b8ae54653d103315313f060eb15d1e95b9b603a247e166e653e788",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 68,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "a",
+      "inputs_submitted": {
+        "id": "a",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "a.png",
+        "a.svg"
+      ],
+      "hue": 109,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(109 65% 38%)",
+        "hsl(109 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 46,
+      "server_ms": [
+        141.0,
+        130.6
+      ],
+      "observed_ms": [
+        1951.7,
+        2032.7
+      ],
+      "png_sha256": "e8783f3e177a836838f9500081efc1502b025144374aa3dddae66e50587064b3",
+      "svg_sha256_generator_output": "19f88197fb9425877d7440ff5da8de469daa0c9883c924836686dd99837525ee",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 109,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "b",
+      "inputs_submitted": {
+        "id": "b",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "b.png",
+        "b.svg"
+      ],
+      "hue": 132,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(132 65% 38%)",
+        "hsl(132 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 44,
+      "server_ms": [
+        189.3,
+        97.5
+      ],
+      "observed_ms": [
+        1953.4,
+        2019.2
+      ],
+      "png_sha256": "2cec9d39f90a0b6d1ed9e33fa7148e2d81b468b44d183157c0969faff9f5babb",
+      "svg_sha256_generator_output": "e7dd3aa66086e40b0959728cc3365c38a4f6e5dcfc5282788fcde8b8dd9e0dc5",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 132,
+        "pixels": [
+          [
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "zeta-9",
+      "inputs_submitted": {
+        "id": "zeta-9",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "zeta-9.png",
+        "zeta-9.svg"
+      ],
+      "hue": 216,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(216 65% 38%)",
+        "hsl(216 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 44,
+      "server_ms": [
+        134.5,
+        93.7
+      ],
+      "observed_ms": [
+        2005.0,
+        1989.1
+      ],
+      "png_sha256": "8ee064e4b1c60f0147380930114097a036551792cb155fbfdc413cd32ede8862",
+      "svg_sha256_generator_output": "d54bc94f73b0b90d7a854dca61e38dc7e1ce0e95f11878d0e4027bdbab645ee1",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 216,
+        "pixels": [
+          [
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "agent-0042",
+      "inputs_submitted": {
+        "id": "agent-0042",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": null,
+      "files": [
+        "agent-0042.png",
+        "agent-0042.svg"
+      ],
+      "hue": 43,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(43 65% 38%)",
+        "hsl(43 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 52,
+      "server_ms": [
+        170.7,
+        202.6
+      ],
+      "observed_ms": [
+        1991.4,
+        1969.9
+      ],
+      "png_sha256": "2eb17645b80cbc43f6c1ac51cdff565852dddb3ce2f6177b838320ba3d573910",
+      "svg_sha256_generator_output": "0529f056cf7d8b36fa6484e62c8a943c0fd696f9d10cd8ae5eae984a17795e80",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 43,
+        "pixels": [
+          [
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        ]
+      }
+    },
+    {
+      "id": "Ünï-cöde",
+      "inputs_submitted": {
+        "id": "Ünï-cöde",
+        "fill": 65,
+        "hue": -1
+      },
+      "codepoints": [
+        "U+00DC",
+        "U+006E",
+        "U+00EF",
+        "U+002D",
+        "U+0063",
+        "U+00F6",
+        "U+0064",
+        "U+0065"
+      ],
+      "files": [
+        "Ünï-cöde.png",
+        "Ünï-cöde.svg"
+      ],
+      "hue": 87,
+      "color_count": 3,
+      "colors": [
+        "#a7f3d0",
+        "hsl(87 65% 38%)",
+        "hsl(87 65% 58%)"
+      ],
+      "background": "transparent (generator emits none)",
+      "lit_pixels": 48,
+      "server_ms": [
+        110.9,
+        108.3
+      ],
+      "observed_ms": [
+        1997.5,
+        1983.0
+      ],
+      "png_sha256": "476134c7c942e2166715aae950d97d91dc9c78c327a6be012e454e21095ebf90",
+      "svg_sha256_generator_output": "899c87af46fdaff832bf3ce4ed4a0fbbd9f2f49652bfa993acac30c055b90140",
+      "byte_identical_across_reruns": true,
+      "identical_detail": {
+        "svg": true,
+        "sprite": true,
+        "png": true
+      },
+      "sprite": {
+        "eyes": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "hue": 87,
+        "pixels": [
+          [
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        ]
+      }
+    }
+  ]
+}

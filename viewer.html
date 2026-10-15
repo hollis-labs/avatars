@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avatar Review</title>
+<style>
+:root{--bg:#f6f6f4;--fg:#1b1b1f;--mut:#6b6b73;--card:#fff;--line:#d9d9d4;--acc:#0f7c7a}
+@media(prefers-color-scheme:dark){:root{--bg:#141418;--fg:#ececf0;--mut:#9a9aa6;--card:#1d1d23;--line:#34343c;--acc:#2ec4b6}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 ui-monospace,Menlo,monospace}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+h1{font-size:15px;margin:0}nav{display:flex;gap:6px;flex-wrap:wrap}
+button{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);padding:4px 10px;cursor:pointer}
+button[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.sp{margin-left:auto;color:var(--mut)}main{padding:16px;max-width:1500px;margin:auto}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);margin:22px 0 10px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);padding:8px;cursor:pointer}
+.card img{width:100%;display:block;image-rendering:pixelated;background:#8883}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:4px}.pair img{aspect-ratio:1/1;object-fit:contain}
+.cap{margin-top:6px;word-break:break-all}.cap small{color:var(--mut);display:block}
+#dlg{position:fixed;inset:0;background:#000c;display:none;z-index:9;padding:16px;overflow:auto}
+#dlg.on{display:block}#box{max-width:900px;margin:auto;background:var(--card);border:1px solid var(--line);padding:14px}
+#box img{width:100%;max-width:640px;display:block;margin:0 auto 10px;image-rendering:pixelated}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);padding:8px;margin:8px 0}
+.sw{display:inline-block;width:18px;height:18px;border:1px solid var(--line);margin-right:3px;vertical-align:middle}
+.empty{color:var(--mut)}.grid.cmp{grid-template-columns:repeat(auto-fill,minmax(620px,1fr))}.grid.cmp .pair{grid-template-columns:repeat(4,1fr)}.ph{display:flex;align-items:center;justify-content:center;border:1px dashed var(--line);color:var(--mut);font-size:12px;min-height:120px}
+</style></head><body>
+<header><h1>Avatar Review</h1><nav id="tabs"></nav><span class="sp" id="spent"></span><button id="re">Refresh</button></header>
+<main id="main"></main>
+<div id="dlg"><div id="box"></div></div>
+<script>
+const $=s=>document.querySelector(s);let D=null,tab='agents',bd='match';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function show(html){$('#box').innerHTML=html+'<p><button onclick="dlg.classList.remove(\'on\')">Close (Esc)</button></p>';dlg.classList.add('on')}
+const dlg=$('#dlg');dlg.onclick=e=>{if(e.target===dlg)dlg.classList.remove('on')};addEventListener('keydown',e=>{if(e.key==='Escape')dlg.classList.remove('on')});
+function bdStyle(c){if(bd==='match'){const p=(c.meta&&c.meta.palette)||[];return p[6]?`background:${p[6]}`:''}
+  if(bd==='dark')return 'background:#1b1b22';if(bd==='light')return 'background:#f2f2ee';
+  return 'background:repeating-conic-gradient(#8884 0 25%,#fff4 0 50%) 0 0/16px 16px'}
+function agentCard(a){const m=a.meta||{};return `<div class="card" data-a="${esc(a.name)}"><img src="${a.src}" alt="${esc(a.name)}"><div class="cap">${esc(a.name)}<small>${esc(m.model||'')} ${m.colors_used?'· '+m.colors_used+' colors':''}</small></div></div>`}
+function render(){
+  $('#tabs').innerHTML=[['agents','Agents ('+D.agents.length+')'],...D.experiments.map(e=>[e.id,e.title.split(' · ')[0]+' ('+e.items.length+')']),['compare','Compare ('+D.compare.length+')'],['golden','Golden'],['cost','Cost']]
+    .map(([k,t])=>`<button data-t="${k}" aria-pressed="${k===tab}">${esc(t)}</button>`).join('');
+  $('#spent').textContent=D.spent!=null?`spent $${D.spent.toFixed(2)} / $10`:'';
+  let h='';
+  if(tab==='agents')h=D.agents.length?`<h2>Generated agents</h2><div class="grid">${D.agents.map(agentCard).join('')}</div>`:'<p class="empty">No agents yet.</p>';
+  else if(tab==='compare'){const got=D.compare.filter(c=>c.theirs).length,hy=D.compare.filter(c=>c.hybrid).length;
+    h=`<h2>Same ids, two generators &mdash; left: model + golden ref · middle: procedural / SVG sprite · 3rd: hybrid v1 (seeded colours) · 4th: hybrid v2 (curated palette + recoloured sprite ref + despeckle)</h2><p class="empty">Drop the other generator's images in <code>out/theirs/&lt;id&gt;.png|svg</code> (filename = id, Refresh to load). ${got}/${D.compare.length} sprites, ${hy} hybrids loaded. Backdrop for transparent images: <select id="bd">${[['match','same bg as left'],['checker','checker'],['dark','dark'],['light','light']].map(([k,t])=>`<option value="${k}"${k===bd?' selected':''}>${t}</option>`).join('')}</select></p><div class="grid cmp">${D.compare.map(c=>`<div class="card" data-c="${esc(c.name)}"><div class="pair"><img src="${c.mine}" alt="mine">${c.theirs?`<img src="${c.theirs}" alt="theirs" style="${bdStyle(c)}">`:'<div class="ph">no image yet</div>'}${c.hybrid?`<img src="${c.hybrid}" alt="hybrid v1">`:'<div class="ph">no v1</div>'}${c.hybrid2?`<img src="${c.hybrid2}" alt="hybrid v2">`:'<div class="ph">no v2</div>'}</div><div class="cap">${esc(c.name)}</div></div>`).join('')}</div>`}
+  else if(tab==='golden')h=`<h2>Golden samples</h2><div class="grid">${D.golden.map(g=>`<div class="card" data-img="${g.src}"><img src="${g.src}"><div class="cap">${esc(g.name)}</div></div>`).join('')}</div>`;
+  else if(tab==='cost'){const by={};D.calls.forEach(c=>{const k=c.model.split('/').pop();(by[k]=by[k]||{n:0,t:0});by[k].n++;by[k].t+=c.cost});
+    h=`<h2>Spend by model</h2><pre>${Object.entries(by).map(([k,v])=>k.padEnd(32)+String(v.n).padStart(3)+' calls  $'+v.t.toFixed(3)).join('\n')}\n${'total'.padEnd(32)}${String(D.calls.length).padStart(3)} calls  $${D.spent.toFixed(3)}</pre>`}
+  else{const e=D.experiments.find(x=>x.id===tab);h=`<h2>${esc(e.title)}</h2><div class="grid">${e.items.map(i=>`<div class="card" data-img="${i.raw||i.post}"><div class="${i.raw&&i.post?'pair':''}">${i.raw?`<img src="${i.raw}" title="raw">`:''}${i.post?`<img src="${i.post}" title="post-processed">`:''}</div><div class="cap">${esc(i.name)}<small>${i.raw&&i.post?'raw · post':i.raw?'raw':'post'}</small></div></div>`).join('')}</div>`}
+  $('#main').innerHTML=h;
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-t]');if(t){tab=t.dataset.t;render();return}
+  const a=e.target.closest('[data-a]');if(a){const x=D.agents.find(z=>z.name===a.dataset.a),m=x.meta||{};
+    show(`<img src="${x.src}"><b>${esc(x.name)}</b><pre>${esc(m.prompt||'(no sidecar)')}</pre>${(m.palette||[]).map(c=>`<span class="sw" style="background:${esc(c)}" title="${esc(c)}"></span>`).join('')}<pre>${esc(JSON.stringify({urn:m.urn,model:m.model,grid:m.grid,colors_used:m.colors_used,golden:m.golden},null,1))}</pre>`);return}
+  const c=e.target.closest('[data-c]');if(c){const x=D.compare.find(z=>z.name===c.dataset.c),m=x.meta||{};
+    show(`<b>${esc(x.name)}</b><div class="pair" style="grid-template-columns:1fr 1fr 1fr"><img src="${x.mine}">${x.theirs?`<img src="${x.theirs}" style="${bdStyle(x)}">`:''}${x.hybrid?`<img src="${x.hybrid}">`:''}${x.hybrid2?`<img src="${x.hybrid2}">`:''}</div><pre>${esc(m.prompt||'')}</pre>`);return}
+  const i=e.target.closest('[data-img]');if(i&&!e.target.closest('#dlg'))show(`<img src="${i.dataset.img}">`)
+});
+$('#re').onclick=load;document.addEventListener('change',e=>{if(e.target.id==='bd'){bd=e.target.value;render()}});
+async function load(){D=await (await fetch('/api/data')).json();if(!['agents','golden','cost','compare'].includes(tab)&&!D.experiments.find(x=>x.id===tab))tab='agents';render()}
+load();
+</script></body></html>

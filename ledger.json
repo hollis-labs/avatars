@@ -1,0 +1,440 @@
+{
+ "total": 3.585318,
+ "calls": [
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03364275,
+   "label": "exp1-lite-strict"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03361275,
+   "label": "exp1-lite-loose"
+  },
+  {
+   "model": "google/gemini-2.5-flash-image",
+   "cost": 0.0387513,
+   "label": "exp1-g25-strict"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672855,
+   "label": "exp1-flash-strict-b"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672855,
+   "label": "exp1-flash-strict"
+  },
+  {
+   "model": "google/gemini-3-pro-image",
+   "cost": 0.143478,
+   "label": "exp1-pro-strict"
+  },
+  {
+   "model": "google/gemini-2.5-flash-image",
+   "cost": 0.0387513,
+   "label": "exp1-g25-strict"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672855,
+   "label": "exp1-flash-strict-b"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03361275,
+   "label": "exp1-lite-loose"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672855,
+   "label": "exp1-flash-strict"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03364275,
+   "label": "exp1-lite-strict"
+  },
+  {
+   "model": "google/gemini-3-pro-image",
+   "cost": 0.139422,
+   "label": "exp1-pro-strict"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389525,
+   "label": "exp2-ref-lite-planner"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389425,
+   "label": "exp2-ref-lite-reviewer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672925,
+   "label": "exp2-noref-flash-planner"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0677905,
+   "label": "exp2-ref-flash-planner"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0672905,
+   "label": "exp2-noref-flash-reviewer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.0677885,
+   "label": "exp2-ref-flash-reviewer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338955,
+   "label": "exp2-ref-lite-builder"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.067791,
+   "label": "exp2-ref-flash-builder"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.067293,
+   "label": "exp2-noref-flash-builder"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.067292,
+   "label": "exp2-noref-flash-scribe"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "cost": 0.06779,
+   "label": "exp2-ref-flash-scribe"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033895,
+   "label": "exp2-ref-lite-scribe"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338945,
+   "label": "exp3-grid24"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389475,
+   "label": "exp3-bg-purple"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389225,
+   "label": "exp3-grid48"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389525,
+   "label": "exp3-bg-night"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338915,
+   "label": "exp3-fox"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338955,
+   "label": "exp3-bg-sand"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338915,
+   "label": "exp3-sleepy"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033891,
+   "label": "exp3-owl"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0338915,
+   "label": "exp3-cat"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389075,
+   "label": "exp3-excited"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389175,
+   "label": "exp3-ghost"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03389,
+   "label": "exp3-angry"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390775,
+   "label": "avatar-team-worker"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-team-reviewer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-frontend"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-designer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339085,
+   "label": "avatar-machine-supervisor"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390775,
+   "label": "avatar-web-writer"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033908,
+   "label": "avatar-portfolio-manager"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-zeta-9"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-agt-pixel-pete"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339065,
+   "label": "avatar-agt-rusty"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-a"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033906,
+   "label": "avatar-b"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-agent-0042"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339065,
+   "label": "avatar-agt-gizmo"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-agt-bolt"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.033906,
+   "label": "avatar-\u00dcn\u00ef-c\u00f6de"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0339065,
+   "label": "avatar-agt-sprocket"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-agt-cogsworth"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03390625,
+   "label": "avatar-agt-widget"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-\u00dcn\u00ef-c\u00f6de"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-zeta-9"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-b"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-a"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-bolt"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-sprocket"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-pixel-pete"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-gizmo"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-rusty"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agent-0042"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-widget"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-cogsworth"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-gizmo"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-agt-bolt"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03420975,
+   "label": "avatar-hybrid-zeta-9"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-zeta-9"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-\u00dcn\u00ef-c\u00f6de"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-bolt"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03420925,
+   "label": "avatar-hybrid-\u00dcn\u00ef-c\u00f6de"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-agt-gizmo"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-zeta-9"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.0341995,
+   "label": "avatar-hybrid-\u00dcn\u00ef-c\u00f6de"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03421075,
+   "label": "avatar-hybrid-agt-bolt"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03421025,
+   "label": "avatar-hybrid-agt-gizmo"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-sprocket"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agent-0042"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-a"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-widget"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-rusty"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-b"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-pixel-pete"
+  },
+  {
+   "model": "google/gemini-3.1-flash-lite-image",
+   "cost": 0.03419875,
+   "label": "avatar-hybrid-agt-cogsworth"
+  }
+ ]
+}

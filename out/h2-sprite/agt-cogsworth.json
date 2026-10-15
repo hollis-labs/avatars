@@ -1,0 +1,26 @@
+{
+ "urn": "agt-cogsworth",
+ "model": "google/gemini-3.1-flash-lite-image",
+ "prompt": "Two reference images. IMAGE 1 is the golden style reference: match its art style, pixel size, proportions, 1-pixel dark outline, shading and framing exactly. IMAGE 2 is a tiny 8x8 pixel sprite that defines THIS agent's identity: keep its overall silhouette (head shape, ear/antenna bumps, body shape) and its main color as the character's accent color, but redraw it as a fully detailed character in the style of IMAGE 1 (face, eyes, outline, shading). Hard pixel edges only, no anti-aliasing, no gradients, no text. Subject: a robot agent. Flat solid background color #263A5E. Head and shoulders, centered, facing the viewer, square image.",
+ "golden": "robot-01.png",
+ "identity_ref": "agt-cogsworth.png",
+ "palette": [
+  "#0B0B14",
+  "#2B2D42",
+  "#5C6378",
+  "#8D99AE",
+  "#C5CBD6",
+  "#EDF2F4",
+  "#263A5E",
+  "#FF8A2B",
+  "#FFAD6A",
+  "#994B0D",
+  "#3F4F6C",
+  "#132038"
+ ],
+ "palette_name": "orange",
+ "ref_style": "sprite",
+ "despeckle": true,
+ "grid": 64,
+ "colors_used": 10
+}
