@@ -1,9 +1,9 @@
 # avatar_generate — contract (as shipped in the Station avatar-server, model side)
 
-Status: updated 2026-10-14 to match what shipped. The Station `avatar-server` (apps/station, plugins/avatar-server) wraps
-`avatar.py` as its `image` and `hybrid` modes. **The server owns** the tool contract, the 16-slot palette registry, the
+Status: updated 2026-10-19. The `station-avatar-server` plugin ([hollis-labs/plugins](https://github.com/hollis-labs/plugins/tree/main/station-avatar-server))
+wraps `avatar.py` as its `image` and `hybrid` modes. **The server owns** the tool contract, the 16-slot palette registry, the
 file store, fallback policy and spend limits. **This repo owns** the model call, palette snap, downscale and despeckle.
-Sections marked *(server)* describe server behaviour as reported by the Station agent; the CLI sections are authoritative here.
+Sections marked *(server)* describe the plugin's behaviour (its README is authoritative); the CLI sections are authoritative here.
 
 ## Principles
 1. **The stored file is the source of truth.** Model output is not reproducible, so idempotence = "file exists → return it, no generation" unless `force`.
@@ -35,7 +35,7 @@ CLI (this repo) emits: `over_budget`, `credential_missing`, `scope_missing`, `no
 ## Spend limits *(server)*
 Per-call, per-UTC-day and total, enforced against the server's own ledger. The CLI additionally enforces `AVATAR_SPEND_CAP` against its own `ledger.json` (defence in depth; it records each call's cost).
 
-## CLI contract (public; changing any of this needs a heads-up to the server owner)
+## CLI contract (public; changing any of this needs a heads-up to the server's owner)
 ```
 python3 -I avatar.py [--out=DIR] [--accent=#HEX] [--bg=#HEX] [--role=R] [--species=S] [--mood=M]
         [--identity-ref=PNG --ref-style=sprite|outline|mask] [--curated] [--model=M]
@@ -67,6 +67,6 @@ Despeckle (two rules, up to 3 passes): (1) an isolated pixel that is a near shad
 ## Open questions
 1. Real mail-URN format (sanitizer is lossy for `/`, `:`; `a/b:c` and `a_b_c` collide; the server reports `name_collision`).
 2. Gateway image path untested (`ai.invoke` scope missing in the test session). If it works, model modes should use it and drop the raw key.
-3. Procedural side latency (~2 s to `succeeded` vs 90–200 ms run).
+3. ~~Procedural side latency~~ Resolved: the server draws the svg sprite natively in-process (under a millisecond), byte-identical to the Hadron workflow.
 4. Golden sample governance: one golden per silhouette family?
-5. Whether the key file is `avatar-openrouter` (this machine) or `avatars-openrouter` (Station machine, symlinked): the default is unchanged; set `AVATAR_KEY_FILE`.
+5. The key file name differs between hosts; the default is unchanged, so set `AVATAR_KEY_FILE` where it is not `~/.config/avatars/avatar-openrouter`.
